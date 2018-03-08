@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+  <head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'display/style.css' %}" type="text/css">
+    <title>Time Display App</title>
+  </head>
+  <body>
+      <h1>The Current Date and Time is:</h1>
+      <div class="date">
+        <h2>{{date}}</h2>
+        <h3>{{time}}</h3>
+      </div>
+  </body>
+</html>
