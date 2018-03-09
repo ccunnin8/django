@@ -1,0 +1,47 @@
+<!doctype>
+<html lang="en">
+  <head>
+    {% load static %}
+    <link type="text/css" href="{% static 'survey/style.css' %}" rel="stylesheet">
+    <title>Survey App</title>
+    <meta charset="utf-8">
+    <meta name="description" content="This is a simple django app that has a form">
+  </head>
+  <body>
+    <div class="container">
+      <form method="post" action="/surveys/process">
+        {% csrf_token %}
+        <div>
+          <label for="name">Your Name: </label>
+          <input type="text" name="name" id="name">
+        </div>
+        <div>
+          <label for="location">Dojo Location</label>
+          <select name="location">
+            <option value="san_jose">San Jose</option>
+            <option value="seatle">Seattle</option>
+            <option value="portland">Portland</option>
+            <option value="washington_dc">Washington, DC</option>
+          </select>
+        </div>
+        <div>
+          <label for="fav_lang">Favorite Language</label>
+          <select name="fav_lang">
+            <option value="javascript">Javascript</option>
+            <option value="python">Python</option>
+            <option value="ruby">Ruby</option>
+            <option value="java">Java</option>
+            <option value="scala">Scala</option>
+            <option value="cpp">C++</option>
+            <option value="c#">C#</option>
+          </select>
+        </div>
+        <div>
+          <label for="comment">Comment</label>
+          <textarea name="comment"></textarea>
+        </div>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+  </body>
+</html>

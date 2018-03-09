@@ -1,0 +1,22 @@
+<!doctype>
+<html lang="en">
+  <head>
+    {% load static %}
+    <link type="text/css" href="{% static 'survey/style.css' %}" rel="stylesheet">
+    <title>Survey App</title>
+    <meta charset="utf-8">
+    <meta name="description" content="This is a simple django app that has a form">
+  </head>
+  <body>
+    <div class="container">
+      <div class="green">
+        <p>Thanks for submitting this form. You have submitted {{ request.session.counter }} times now!</p>
+      </div>
+      <h2>Submitted Info</h2>
+      <h3>Name: {{ request.session.name }}</h3>
+      <h3>Dojo Location: {{ request.session.location }}</h3>
+      <h3>Favorite Language: {{ request.session.lang }}</h3>
+      <h3>Comment: {{ request.session.comment }}</h3>
+    </div>
+  </body>
+</html>
