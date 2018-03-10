@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <title>Session Words</title>
+    <link href="{% static 'session_words/style.css' %}" type="text/css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta content="app that lists session words" name="description">
+  </head>
+  <body>
+    <div class="container">
+      <div class="left">
+        <form action="/session_words/add_word" method="post">
+          {% csrf_token %}
+          <label for="name"><h2>Add New Word</h2></label>
+          <input type="text" name="word" id="word">
+          <h2>Choose color</h2>
+          <input type="radio" name="color" value="red" id="red">
+          <label for="red">Red</label>
+          <input type="radio" name="color" value="green" id="green">
+          <label for="green">Green</label>
+          <input type="radio" name="color" value="blue" id="blue">
+          <label for="blue">Blue</label>
+          <input type="checkbox" name="big" value="true" id="big">
+          <label for="big">show in BIG fonts!</label>
+          <input type="submit" value="Add to Session">
+        </form>
+      </div>
+      <div class="right">
+        <form action="/session_words/clear" method="post">
+          {% csrf_token %}
+          <input type="submit" value="Clear Session">
+        </form>
+        {% if session.request.entries %}
+          {% for entry in session.request.entries %}
+            <p>
+              {% if entry.big %}
+              <span class="big {{ entry.color }}"> {{ entry.word }} </span>
+              {% else %}
+              <span class="{{ entry.color }}">{{ entry.word }}</span>
+              {% endif %}
+              - {{ entry.date }}
+            </p>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>
