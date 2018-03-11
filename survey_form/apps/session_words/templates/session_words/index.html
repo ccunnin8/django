@@ -16,13 +16,13 @@
           <input type="text" name="word" id="word">
           <h2>Choose color</h2>
           <input type="radio" name="color" value="red" id="red">
-          <label for="red">Red</label>
+          <label for="red">Red</label><br>
           <input type="radio" name="color" value="green" id="green">
-          <label for="green">Green</label>
+          <label for="green">Green</label><br>
           <input type="radio" name="color" value="blue" id="blue">
-          <label for="blue">Blue</label>
-          <input type="checkbox" name="big" value="true" id="big">
-          <label for="big">show in BIG fonts!</label>
+          <label for="blue">Blue</label><br>
+          <input type="checkbox" name="big" value="True" id="big">
+          <label for="big">show in BIG fonts!</label><br>
           <input type="submit" value="Add to Session">
         </form>
       </div>
@@ -31,8 +31,8 @@
           {% csrf_token %}
           <input type="submit" value="Clear Session">
         </form>
-        {% if session.request.entries %}
-          {% for entry in session.request.entries %}
+        {% if request.session.entries %}
+          {% for entry in request.session.entries %}
             <p>
               {% if entry.big %}
               <span class="big {{ entry.color }}"> {{ entry.word }} </span>
