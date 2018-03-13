@@ -1,0 +1,31 @@
+<!doctype>
+<html>
+  <head>
+    {% load static %}
+    <title>Great Number Game</title>
+    <link href="{% static 'main/style.css' %}" type="text/css" rel="stylesheet">
+  </head>
+  <body>
+    <center>
+      <h1>Welcome to the Great Number Game</h1>
+      <h2>I'm thinking of a number between 1 and 100</h2>
+      {% if guess %}
+        {% if guess > correct %}
+        <h3>Too High!</h3>
+        {% elif guess < correct %}
+        <h3>Too Low!</h3>
+        {% elif guess == correct %}
+        <h3>Correct!</h3>
+        <a href="/"><button>Restart</button></a>
+        {% endif %}
+      {% endif %}
+      {% if guess != request.session.correct_num %}
+        <form action="/guess" method="post">
+          {% csrf_token %}
+          <input type="text" name="guess" id="guess">
+          <input type="submit" value="Submit">
+        </form>
+      {% endif %}
+    </center>
+  </body>
+</html>
