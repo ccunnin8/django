@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+  <head>
+    {% load static %}
+    <title>Ninja Money</title>
+    <link href="{% static 'main/style.css' %}" type="text/css" rel="stylesheet">
+  </head>
+  <body>
+    <p>Your Gold: <span>{{ request.session.gold }}</span>
+    <div class="locations">
+      <div id="farm">
+        <h2>Farm</h2>
+        <h4>(earns 10-20 golds)</h4>
+        <form action="/process_money" method="POST">
+            {% csrf_token %}
+          <input type="hidden" name="loc" value="farm">
+          <input type="submit" value="Find Gold!">
+        </form>
+      </div>
+      <div id="cave">
+        <h2>Cave</h2>
+        <h4>(earns 5-10 golds)</h4>
+        <form action="/process_money" method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="loc" value="cave">
+          <input type="submit" value="Find Gold!">
+        </form>
+      </div>
+      <div id="house">
+        <h2>House</h2>
+        <h4>(earns 2-5 golds)</h4>
+        <form action="/process_money" method="POST">
+            {% csrf_token %}
+          <input type="hidden" name="loc" value="house">
+          <input type="submit" value="Find Gold!">
+        </form>
+      </div>
+      <div id="casino">
+        <h2>Casino</h2>
+        <h4>(earns/takes 0-50 golds)</h4>
+        <form action="/process_money" method="POST">
+            {% csrf_token %}
+          <input type="hidden" name="loc" value="casino">
+          <input type="submit" value="Find Gold!">
+        </form>
+      </div>
+    </div>
+    <p>Activities: </p>
+    <div class="activities">
+      {% for status in request.session.status %}
+      {{ status | safe }}
+      {% endfor %}
+    </div>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+.locations div {
+  text-align: center;
+  display: inline-block;
+  width: 24%;
+  margin: 2px;
+  padding: 10px 2px;
+  border: 1px solid black;
+}
+
+.activities {
+  border: 1px solid black;
+  overflow: scroll;
+  height: 200px;
+  width: 100%;
+}
+
+.neg {
+  color: red;
+}
+
+.pos {
+  color: green;
+}
