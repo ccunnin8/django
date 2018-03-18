@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'apps.blogs',
     'apps.surveys',
     'apps.users',
+    'apps.dojo_ninjas',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
