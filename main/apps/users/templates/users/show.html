@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <title>Users {{ user.id }}/title>
+    <link href="{% static 'users/style.css' %}" rel ="stylesheet" type="text/css">
+    <meta name="description" content="restful(ish) app for users">
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <h1>User {{ user.id }}</h1>
+    <h3>Full Name {{ user.full_name }}></h3>
+    <h3>Email {{ user.email }}</h3>
+    <h3>Created at {{ user.created_at }}</h3>
+    <p><a href="{% url 'users:edit' user.id %}">Edit</a> <a href="{% url 'users:destroy' user.id %}">Delete</a></p>
+  </body>
+</html>

@@ -11,6 +11,9 @@ class User(Model):
     created_at = DateTimeField(auto_now_add=True)
     updated_at = DateTimeField(auto_now=True)
 
+    def get_full_name(self):
+        return first_name + " " + last_name 
+
     def __str__(self):
         return "{x} {y} is {age}, email = {email}".format(x=self.first_name,y=self.last_name,age=self.age,email=self.email_address)
 

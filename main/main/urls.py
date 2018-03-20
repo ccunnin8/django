@@ -19,5 +19,5 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^blogs/', include('apps.blogs.urls')),
     url(r'^surveys/',include('apps.surveys.urls')),
-    url(r'^',include('apps.users.urls'))
+    url(r'^users/',include('apps.users.urls'), namespace="users"),
 ]
