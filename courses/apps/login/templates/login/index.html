@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <title>Login and Reg | Home </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'login/style.css' %}" type="text/css">
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <div class="container">
+      {% if messages %}
+        {% for message in messages %}
+        <p class="alert alert-primary">{{ message }}</p>
+        {% endfor %}
+      {% endif %}
+      <h1>Registration</h1>
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          {{ errors }}
+          <form action="/register" method="post">
+            {% csrf_token %}
+            {{ UserForm }}
+            <input type="submit" value="Register">
+          </form>
+        </div>
+      </div>
+      <h1>Login</h1>
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <form action="/login" method="post">
+            {% csrf_token %}
+            <label for="email">Email: </label>
+            <input type="email" name="email" id="email">
+            <label for="password">Passoword: </label>
+            <input type="password" name="password" id="password">
+            <input type="submit" value="Login">
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

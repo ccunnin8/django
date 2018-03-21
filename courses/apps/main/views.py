@@ -49,6 +49,3 @@ def comments(req,id):
         "course": course,
         "CommentForm": CommentForm
         })
-
-def new_comment(req):
-    pass
