@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Add a student to all bootcamp courses</title>
+    <meta charset="utf-8">
+    <meta name="description" content="courses">
+  </head>
+  <body>
+    {% if messages %}
+      {% for message in messages %}
+      <p>{{ message }}
+      {% endfor %}
+    {% endif %}
+    <h2>Add a new course</h2>
+    <form method="post" action="{% url 'create' %}">
+      {% csrf_token %}
+      {{ CourseForm }}
+      <br>
+      {{ DescriptionForm }}
+      <br>
+      <input type="submit" value="Add Class">
+    </form>
+    <h2>Courses</h2>
+    <table>
+      <thead>
+        <tr>
+          <td>Course Name</td>
+          <td>Description</td>
+          <td>Date Added</td>
+          <td>Actions</td>
+        </tr>
+      </thead>
+      <tbody>
+        {% for course in courses %}
+          <tr>
+            <td><a href="{% url 'comments' course.id %}">{{ course.course_name }}</a></td>
+            {% if course.description %}
+              <td>{{ course.description.description }}</td>
+            {% endif %}
+            <td>{{ course.created_at }}</td>
+            <td><a href="{% url 'destroy' course.id %}">remove</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

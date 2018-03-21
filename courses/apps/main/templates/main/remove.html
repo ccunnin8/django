@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Course Comments</title>
+    <meta charset="utf-8">
+    <meta name="description" content="courses">
+  </head>
+  <body>
+    <h1>Are you sure you want to delete the following course?</h1>
+    <h2>Name: {{ couse.name }}</h2>
+    <h2>Description: {{ course.description }}</h2>
+    <a href="{% url 'index' %}"<button>No</button></a>
+    <form method="post" action="{% url 'destroy' course.id %}">
+      {% csrf_token %}
+      <input type="submit" value="Yes! I want to delete this">
+    </form>
+  </body>
+</html>
