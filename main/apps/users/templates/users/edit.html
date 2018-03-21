@@ -8,6 +8,12 @@
     <meta charset="utf-8">
   </head>
   <body>
-    <h1>Edit User {{ user.id }}</h1>
+    <h1>Edit User {{ id }}</h1>
+    <form method="post" action="{% url 'users:update' %}">
+      {% csrf_token %}
+      {{ edit_user }}
+      <input type="hidden" name="id" value="{{id}}">
+      <input type="submit" value="Update">
+    </form>
   </body>
 </html>

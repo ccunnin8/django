@@ -9,6 +9,11 @@
   </head>
   <body>
     <h1>Add a new user</h1>
+    <form method="post" action="{% url 'users:create' %}">
+      {% csrf_token %}
+      {{ new_user }}
+      <input type="submit" value="Create">
+    </form>
     <p><a href="{% url 'users:index' %}">Go Back</a></p>
   </body>
 </html>

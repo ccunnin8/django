@@ -8,6 +8,11 @@
     <meta charset="utf-8">
   </head>
   <body>
+    {% if messages %}
+      {% for error in messages %}
+      <p>{{ error }}</p>
+      {% endfor %}
+    {% endif %}
     <h1>Users</h1>
     <table>
       <thead>
@@ -25,11 +30,15 @@
         <tr>
           <td>{{ user.id }}</td>
           <td>{{ user.full_name }}</td>
-          <td>{{ user.email }}</td>
+          <td>{{ user.email_address }}</td>
           <td>{{ user.created_at }}</td>
           <td>{{ user.updated_at }}</td>
-          <td>{% url 'users:show'%} {% url 'users:edit' %} {% url 'users:delete' %}
+          <td><a href="{% url 'users:show' user.id %}">Show</a>
+              <a href="{% url 'users:edit' user.id %}">Edit</a>
+              <a href="{% url 'users:destroy' user.id %}">Delete</a>
+          </td>
         </tr>
+        {% endfor %}
       </tbody>
     </table>
     <p><a href="{% url 'users:new' %}">Add a new user</a></p>
