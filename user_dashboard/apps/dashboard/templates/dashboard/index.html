@@ -1,0 +1,32 @@
+{% extends "main/base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<h1>All Users</h1>
+<table>
+  <thead>
+    <tr>
+      <td>ID</td>
+      <td>Name</td>
+      <td>email</td>
+      <td>created_at</td>
+      <td>user_level</td>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in users %}
+    <tr>
+      <td>{{ user.id }}</td>
+      <td>{{ user.first_name }} {{ user.last_name }}</td>
+      <td>{{ user.created_at }}</td>
+      <td>
+        {% if user.admin %}
+        admin
+        {% else %}
+        normal
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "main/base.html" %}
+{% block title %} Register {% endblock %}
+{% block content %}
+<h1>Register</h1>
+{% for message in messages %}
+<p>{{ message }}</p>
+{% endfor %}
+{% include "users/register_form.html" %}
+<p><a href="{% url 'index:signin' %}">Already have an account? Login</a></p>
+{% endblock %}

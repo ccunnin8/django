@@ -1,0 +1,34 @@
+{% extends "main/base.html" %}
+{% block title %}User Information{% endblock %}
+{% block content %}
+<h3>{{ user.name }}</h3>
+<h4>Registered at: {{ user.created_at }}</h4>
+<h4>Email address: {{ user.email }}</h4>
+<h3>Leave a message for {{user.name}}</h3>
+<form action="{% url 'users:message' user.id %}" method="post">
+  <textarea name="message"></textarea>
+  <input type="submit" value="message" class="btn btn-secondary">
+</form>
+{% for message in user_messages %}
+<div class="row">
+  <div class="col-md-12">
+    <p>{{ message.user }} wrote</p>
+    <p>{{ message.message }}</p>
+  </div>
+</div>
+{% if message.replies %}
+<div class="row justify-content-end">
+  {% for reply in message.replies %}
+  <div class="col-md-10 push">
+    <p>{{reply.author}} wrote</p>
+    <p>{{reply.message}}</p>
+  </div>
+</div>
+<form action="{% url 'users:comment' user.id message.id %}" method="post">
+  <textarea name="comment"></textarea>
+  <input type="submit" value="comment" class="btn btn-secondary">
+</form>
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% endblock %}
