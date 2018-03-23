@@ -5,6 +5,8 @@ from django.core.validators import MinLengthValidator, EmailValidator
 from django.core.exceptions import ValidationError
 from bcrypt import hashpw, gensalt
 from re import search
+from datetime import date
+
 def password_validation(password):
     if len(password) < 8:
         raise ValidationError("Password must be at least 8 Characters")
@@ -14,9 +16,6 @@ def password_validation(password):
         raise ValidationError("Must contain at least 2 lowercase letters")
     if not search(r'[!@#$%^&*()]{1}',password):
         raise ValidationError("Must contain at least 1 special character")
-
-def encrypt_password(password):
-    return hashpw(password.encode(),gensalt())
 
 class UserManager(models.Manager):
     errors = []
@@ -52,6 +51,21 @@ class UserManager(models.Manager):
         except ValidationError, e:
             self.errors.append(e)
 
+    def login_user(self,req,user):
+        req.session["user"] = {
+            "id": user.id,
+            "email": user.email,
+        }
+        #user is logged in
+        if user.admin:
+            req.session["admin"] = True
+        else:
+            req.session["admin"] = False
+        req.session["logged_in"] = True
+
+    def encrypt_password(self,password):
+        return hashpw(password.encode(),gensalt())
+
 # Create your models here.
 class User(models.Model):
     first_name = models.CharField(max_length=255,validators=[MinLengthValidator(2)])
@@ -61,11 +75,8 @@ class User(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     admin = models.BooleanField(default=False)
+    description = models.TextField(null=True)
     objects = UserManager()
-
-    def save(self,*args,**kwargs):
-        self.password = encrypt_password(self.password)
-        super(User,self).save(*args,**kwargs)
 
 
 class Message(models.Model):

@@ -1,0 +1,13 @@
+{% extends "main/base.html" %}
+{% block title %}Do you really want to delete{% endblock %}
+{% if request.session.user.admin %}
+<p>Are you sure you want to delete user #{{ id }}'s profile?</p>
+{% else %}
+<p>Are you sure you want to delete your profile?</p>
+<form action="{% url 'user:destroy' user.id %}" method="post">
+  <input type="submit" value="Yes" class="btn btn-primary">
+</form>
+{% if request.session.user.admin %}
+<a href="{% url 'dashboard:admin_dashboard' %}" class="btn btn-secondary">Go Back</a>
+{% else %}
+<a href="{% url 'dashboard:index' %}" class="btn btn-secondary">Go Back</a>

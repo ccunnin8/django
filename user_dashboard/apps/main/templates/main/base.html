@@ -16,9 +16,13 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           {% if request.session.logged_in %}
-            <a class="nav-item nav-link" href="#">Dashboard</a>
-            <a class="nav-item nav-link" href="#">Profile</a>
-            <a class="nav-item nav-link justify-content-end" href="#">Log Off</a>
+            {% if request.session.admin %}
+              <a class="nav-item nav-link" href="{% url 'dashboard:admin_dashboard' %}">Dashboard</a>
+            {% else %}
+              <a class="nav-item nav-link" href="{% url 'dashboard:index' %}">Dashboard</a>
+            {% endif %}
+            <a class="nav-item nav-link" href="{% url 'users:show' request.session.user.id  %}">Profile</a>
+            <a class="nav-item nav-link justify-content-end" href="{% url 'index:logout' %}">Log Off</a>
           {% else %}
             <a class="nav-item nav-link" href="{% url 'index:index' %}">Home</a>
             <a class="nav-item nav-link justify-content-end" href="{% url 'index:signin' %}"> Sign In</a>

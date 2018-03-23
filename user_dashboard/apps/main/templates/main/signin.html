@@ -1,8 +1,13 @@
 {% extends "main/base.html" %}
 {% block title %} Sign In Page {% endblock %}
 {% block content %}
+{% if messages %}
+{% for message in messages %}
+<p class="alert alert-primary">{{ message }}</p>
+{% endfor %}
+{% endif %}
 <h3>Signin</h3>
-<form action="{% url 'users:login' %}" method="post">
+<form action="{% url 'index:login' %}" method="post">
   {% csrf_token %}
   <label for="email">Email Address:</label>
   <input type="email" name="email" id="email" required>

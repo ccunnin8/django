@@ -1,8 +1,21 @@
 from django.shortcuts import render
-
+from django.contrib import messages
+from ..users.models import User
 # Create your views here.
 def index(req):
-    return render(req,"dashboard/index.html")
+    try:
+        users = User.objects.all()
+        return render(req,"dashboard/index.html",{"users":users})
+    except Exception as e:
+        print(e)
+        messages.error(req,"Something went wrong")
+        return render(req,"dashboard/index.html")
 
 def admin(req):
-    return render(req,"dashboard/dashboard_admin.html")
+    try:
+        users = User.objects.all()
+        return render(req,"dashboard/dashboard_admin.html",{"users":users})
+    except Exception as e:
+        print(e)
+        messages.error(req,"Something went wrong")
+        return render(req,"dashboard/dashboard_admin.html")

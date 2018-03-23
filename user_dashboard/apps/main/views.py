@@ -1,6 +1,6 @@
 from django.shortcuts import render, reverse, redirect
 from django.contrib import messages
-from user_dashboard.applications.users.models import User
+from ..users.models import User
 from datetime import date
 from bcrypt import checkpw
 # Create your views here.
@@ -26,14 +26,7 @@ def login(req):
         #use bcrypt to see if password matches hashed password
         if checkpw(password.encode(),user_password.encode()):
             #add user to session
-            req.session["user"] = {
-                "id": user.id,
-                "email": user.email,
-                "created_at": user.created_at.date().strftime("%Y %M %D"),
-                "admin": user.admin
-            }
-            #user is logged in
-            req.session["logged_in"] = True
+            User.objects.login_user(req,user)
         else:
             #password is not correct
             messages.error(req,"Incorrect Password")
@@ -53,6 +46,7 @@ def logout(req):
     #if a user is logged in or exists delete the session key
     if "user" in req.session:
         del req.session["user"]
+        del req.session["admin"]
         del req.session["logged_in"]
         return redirect(reverse("index:signin"))
     else:
