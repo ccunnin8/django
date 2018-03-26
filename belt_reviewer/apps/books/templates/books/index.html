@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Books Home</title>
+  </head>
+  <body>
+    {% load app_tags %}
+    <nav>
+      <h1>Welcome, {{ user.name }}</h1>
+      <a href="/books/add">Add Book and Review</a>
+      <a href="/logout">Logout</a>
+    </nav>
+    <div class="container">
+      <div class="reviews">
+        <h3>Recent Book Reviews</h3>
+        {% for review in reviews %}
+        <div class="review">
+          <a href="/books/{{review.book.id}}"><h3>{{ review.book.title }}</h3></a>
+        <p>Rating:
+            {% for num in review.rating|get_range %}
+            *
+            {% endfor %}
+          </p>
+          <p><a href="/users/{{review.user.id}}">{{ review.user.name }} </a>{{ review.review }}</p>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="other_books">
+        <h3>All Books</h3>
+        <ul>
+          {% for book in books %}
+          <li><a href="/books/{{book.id}}">{{book.title}}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
