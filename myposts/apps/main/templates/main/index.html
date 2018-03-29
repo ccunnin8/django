@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+  <head>
+    {% load static %}
+    <title>Ajax Posts</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script   src="https://code.jquery.com/jquery-3.3.1.min.js"   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="   crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <style>
+      .post {
+        width: 50px;
+        height: 50px;
+        padding: 10px;
+        margin: 10px;
+      }
+    </style>
+    <div class="container">
+      <div class="row posts">
+        <header>My Posts</header>
+        {% for post in posts %}
+        <div class="post">
+          <p>{{ post.post }}</p>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="row">
+        <form action="add_post" method="post">
+          {% csrf_token %}
+          <label for="post">Add a note: </label></br>
+          <textarea name="new_post"></textarea><br>
+          <input type="submit" value="Post It">
+        </form>
+      </div>
+    </div>
+    <script src="{% static 'main/javascript/main.js' %}"></script>
+  </body>
+</html>
