@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+  <head>
+    {% load static %}
+    <title>Ajax Notes</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script   src="https://code.jquery.com/jquery-3.3.1.min.js"   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="   crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <h1>Users</h1>
+        <div class="col-md-12">
+          <form action="search" method="get">
+            <label for="name">Name: </label>
+            <input type="text" name="name" id="name">
+            <label for="from">From</label>
+            <input type="date" name="from" id="from">
+            <label for="to">To: </label>
+            <input type="date" name="to" id="to">
+            <input type="submit" value="Search">
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="main">
+      <ul>
+        {% for page in pages %}
+        <li><a href="/pagination/{{page}}">{{page}}</a></li>
+        {% endfor %}
+      </ul>
+      <div class="row">
+        <div class="col-md-12 center  users">
+          <table>
+            <thead>
+              <tr>
+                <td>Leads_id</td>
+                <td>First Name</td>
+                <td>Last Name</td>
+                <td>Registered Date</td>
+                <td>Email</td>
+              </tr>
+            </thead>
+            <tbody>
+              {% for user in users %}
+                {% include "pagination/user.html" %}
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <script src="{% static 'pagination/main.js' %}"></script>
+  </body>
+
+</html>

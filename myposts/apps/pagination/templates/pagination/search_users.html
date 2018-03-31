@@ -1,0 +1,25 @@
+<ul>
+  {% for page in pages %}
+  <li><a href="/pagination/{{page}}">{{page}}</a></li>
+  {% endfor %}
+</ul>
+<div class="row">
+  <div class="col-md-12 center  users">
+    <table>
+      <thead>
+        <tr>
+          <td>Leads_id</td>
+          <td>First Name</td>
+          <td>Last Name</td>
+          <td>Registered Date</td>
+          <td>Email</td>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+          {% include "pagination/user.html" %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
