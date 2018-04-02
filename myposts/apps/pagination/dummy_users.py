@@ -4,37 +4,37 @@ email = "another_email@gmail.com"
 
 users  =[
     {
-    "first_name": "Sally",
-    "last_name": "Smith"
+    "first_name": "Maria",
+    "last_name": "Sanchez"
     },
     {
-    "first_name": "Sandry",
-    "last_name": "Smith",
+    "first_name": "Julia",
+    "last_name": "Sanchez",
 
     },
     {
-    "first_name": "Mandy",
-    "last_name": "Smith",
+    "first_name": "Cristian",
+    "last_name": "Sanchez",
     },
     {
-    "first_name": "Mindy",
-    "last_name": "Smith",
+    "first_name": "Raul",
+    "last_name": "Sanchez",
     },
     {
-    "first_name": "Bindy",
-    "last_name": "Smith"
+    "first_name": "Mariana",
+    "last_name": "Sanchez"
     },
     {
-    "first_name": "Puddin'",
-    "last_name": "Smith",
+    "first_name": "Maria'",
+    "last_name": "Gomez",
     },
     {
-    "first_name": "Plistjaleena",
-    "last_name": "Smith",
+    "first_name": "Julia",
+    "last_name": "Gomez",
     },
     {
-    "first_name": "Bazakalooma",
-    "last_name": "Smith" }
+    "first_name": "Brayden",
+    "last_name": "Jackson" }
 ]
 
 for user in users:

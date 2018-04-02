@@ -7,6 +7,18 @@
     <script   src="https://code.jquery.com/jquery-3.3.1.min.js"   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="   crossorigin="anonymous"></script>
   </head>
   <body>
+    <style>
+      ul, li {
+        display: inline;
+        list-style: none;
+      }
+      .main {
+        margin-top: 20px;
+      }
+      table {
+        margin-top: 20px;
+      }
+    </style>
     <div class="container">
       <div class="row">
         <h1>Users</h1>
@@ -18,17 +30,17 @@
             <input type="date" name="from" id="from">
             <label for="to">To: </label>
             <input type="date" name="to" id="to">
-            <input type="submit" value="Search">
           </form>
         </div>
       </div>
-    </div>
     <div class="main">
-      <ul>
-        {% for page in pages %}
-        <li><a href="/pagination/{{page}}">{{page}}</a></li>
-        {% endfor %}
-      </ul>
+      <div class="nav">
+        <ul>
+          {% for page in pages %}
+          <li><a href="/pagination/{{page}}">{{page}}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
       <div class="row">
         <div class="col-md-12 center  users">
           <table>
@@ -50,6 +62,7 @@
         </div>
       </div>
     </div>
+  </div>
     <script src="{% static 'pagination/main.js' %}"></script>
   </body>
 
