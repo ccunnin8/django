@@ -28,6 +28,7 @@ def change(cents):
             cents -= bills[bill]
     return change
 
+#####SORTING ALGORITHMS#############3
 def push_front(arr,val):
     arr[0] = arr.append(arr[0])
     arr[0] = val
@@ -41,4 +42,14 @@ def bubble_sort(arr):
             if arr[num] > arr[num+1]:
                 arr[num],arr[num+1] = arr[num+1],arr[num]
                 switch = True
+    return arr
+
+def selection_sort(arr):
+    for index,item in enumerate(arr):
+        smallest_val = item
+        smallest_index = index
+        for next_i in range(index,len(arr)):
+            if arr[next_i] < smallest_val:
+             smallest_index = next_i
+        arr[index],arr[smallest_index] = arr[smallest_index], arr[index]
     return arr
