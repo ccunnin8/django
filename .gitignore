@@ -1,1 +1,4 @@
 **/**.sqlite3
+**.zip
+travel_buddy/
+djangoEnv/
