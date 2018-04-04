@@ -53,3 +53,20 @@ def selection_sort(arr):
              smallest_index = next_i
         arr[index],arr[smallest_index] = arr[smallest_index], arr[index]
     return arr
+
+def insertion_sort(arr):
+    start = 0
+    end = len(arr) -1
+    for num in range(start,end):
+        beginning_of_arr = arr[start:num+1]
+        beginning_length = len(beginning_of_arr)
+        next_val = arr[num+1]
+        rest_of_array = arr[num+2:]
+        for index, val in enumerate(beginning_of_arr):
+            if next_val < val:
+                beginning_of_arr.insert(index,next_val)
+                break
+        if len(beginning_of_arr) == beginning_length:
+            beginning_of_arr.append(next_val)
+        arr = beginning_of_arr + rest_of_array
+    return arr
