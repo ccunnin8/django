@@ -32,3 +32,13 @@ def push_front(arr,val):
     arr[0] = arr.append(arr[0])
     arr[0] = val
     return arr
+
+def bubble_sort(arr):
+    switch = True
+    while switch:
+        switch = False
+        for num in range(len(arr)-1):
+            if arr[num] > arr[num+1]:
+                arr[num],arr[num+1] = arr[num+1],arr[num]
+                switch = True
+    return arr
