@@ -27,3 +27,8 @@ def change(cents):
                 change[bill] += 1
             cents -= bills[bill]
     return change
+
+def push_front(arr,val):
+    arr[0] = arr.append(arr[0])
+    arr[0] = val
+    return arr
