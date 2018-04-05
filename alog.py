@@ -132,3 +132,40 @@ class SList(object):
             else:
                 node.next = node.next.next
         return self
+
+class DLNode(object):
+    def __init__(self,prev=None,next=None,value=None):
+        self.prev = prev
+        self.next = next
+        self.value = value
+
+class DList(object):
+    def __init__(self,head=None, tail=None):
+        self.head = head
+        self.tail = tail
+
+    def add(self,node):
+        if self.head == None:
+            self.head = node
+            self.tail = node
+        else:
+            self.tail.next = node
+            node.prev = self.tail
+            self.tail = node
+        return self
+
+    def insert(self,node_to_insert,insertion_point):
+        def find_insertion(node,insertion_point):
+            return node if node == insertion_point else find_insertion(node.next)
+        insertion_node = find_insertion(insertion_point)
+        node_to_insert.next = insertion_node
+        node_to_insert.prev = insertion_node.prev
+        insertion_node.prev.next = node_to_insert
+        insertion_node.prev = node_to_insert
+        return self
+
+
+test = DLNode()
+test.value = "test"
+tester = DLNode()
+tester.value = "tester"
