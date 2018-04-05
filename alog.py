@@ -70,3 +70,65 @@ def insertion_sort(arr):
             beginning_of_arr.append(next_val)
         arr = beginning_of_arr + rest_of_array
     return arr
+class SLNode(object):
+
+    def __init__(self,value,next=None):
+        self.value = value
+        self.next = next
+
+class SList(object):
+    def __init__(self,head=None,next=None):
+        self.head = head
+        self.tail = next
+
+    def PrintAllVals(self):
+        node = self.head
+        print(node.value)
+        while node.next != None:
+            node = node.next
+            print(node.value)
+
+    def AddBack(self,val):
+        self.tail.next = val
+
+    def AddFront(self,back):
+        back.next = self.head
+        self.head = back
+
+    def insertBefore(self, nextVal, val):
+        if (val == self.head):
+            nextVal.next = self.head
+            self.head = nextVal
+        else:
+            node = self.head
+            while (node.next != val):
+                node = node.next
+            nextVal.next = node.next
+            node.next = nextVal
+        return self
+
+    def insertAfter(self,preval,val):
+        if val.next == None:
+            val.next = preval
+            self.tail = preval
+        else:
+            node = self.head
+            while (node != val):
+                node = node.next
+            next_node = node.next
+            node.next = preval
+            preval.next = next_node
+        return self
+
+    def RemoveNode(self,val):
+        if val == self.head:
+            self.head = val.next
+        else:
+            node = self.head
+            while (node.next != val):
+                node = node.next
+            if val == self.tail:
+                self.tail = node
+            else:
+                node.next = node.next.next
+        return self
