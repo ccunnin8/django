@@ -9,8 +9,8 @@
 <h3>Signin</h3>
 <form action="{% url 'index:login' %}" method="post">
   {% csrf_token %}
-  <label for="email">Email Address:</label>
-  <input type="email" name="email" id="email" required>
+  <label for="username">Username:</label>
+  <input type="username" name="username" id="username" required>
   <label for="password">Password: </label>
   <input type="password" name="password" id="password" required>
   <input type="submit" value="Sign In">

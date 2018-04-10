@@ -1,37 +1,6 @@
 <form action="{% url 'users:create' %}" method="post">
   {% csrf_token %}
-  <div class="form-group">
-    {% for error in request.session.form_errors.email %}
-    <p>{{error}}</p>
-    {% endfor %}
-    <label for="email">Email Address:</label>
-    <input type="email" name="email" class="form-control" id="email">
-  </div>
-  <div class="form-group">
-    {% for error in request.session.form_errors.first_name %}
-    <p>{{error}}</p>
-    {% endfor %}
-    <label for="first_name">First Name: </label>
-    <input type="text" name="first_name" class="form-control" id="first_name">
-  </div>
-  <div class="form-group">
-    {% for error in request.session.form_errors.last_name %}
-    <p>{{error}}</p>
-    {% endfor %}
-    <label for="last_name">Last Name: </label>
-    <input type="text" name="last_name" class="form-control" id="last_name">
-  </div>
-  <div class="form-group">
-    {% for error in request.session.form_errors.password %}
-    <p>{{error}}</p>
-    {% endfor %}
-    <label for="password">Password: </label>
-    <input type="password" name="password" class="form-control" id="password">
-  </div>
-  <div class="form-group">
-    <label for="password_conf">Password Confirmation: </label>
-    <input type="password" name="password_conf" class="form-control" id="password_conf">
-  </div>
+  {{ user_form }}
   {% if request.session.admin %}
     <input type="submit" class="btn btn-primary" value="Create">
   {% else %}

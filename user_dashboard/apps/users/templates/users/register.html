@@ -3,5 +3,8 @@
 {% block content %}
 <h1>Add A New User</h1>
 <a href="{% url 'dashboard:admin_dashboard' %}" class="btn btn-primary">Return to Dashboard</a>
+{% if messages %}
+{{ messages }}
+{% endif %}
 {% include "users/register_form.html" %}
 {% endblock %}

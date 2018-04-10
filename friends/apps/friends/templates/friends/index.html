@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+  <head>
+    {% load static %}
+    <title>Friends</title>
+  </head>
+  <body>
+    <nav>
+      <p><a href="{% url 'main:logout' %}">Logout</a></p>
+    </nav>
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %}
+    <h1>Hello, {{ request.session.user_name }}</h1>
+    <h2>Here is the list of your friends </h2>
+    <table>
+      <thead>
+        <tr>
+          <td>Alias</td>
+          <td>Action</td>
+        </tr>
+      </thead>
+      <tbody>
+        {% for friend in friends %}
+        <tr>
+          <td>{{friend.alias}}</td>
+          <td><a href="{% url 'user:show' friend.id %}">View Profile </a>
+              <a href="{% url 'friends:unfriend' friend.id %}">Remove as Friend</a>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <h3>Other Users not on your friend's list:</h3>
+    <table>
+      <thead>
+        <tr>
+          <td>Alias</td>
+          <td>Action</td>
+        </tr>
+      </thead>
+      <tbody>
+        {% for not_friend in not_friends %}
+        <tr>
+          <td><a href="{% url 'user:show' not_friend.id %}">{{ not_friend.name }}</a></td>
+          <td><a href="{% url 'friends:friend' not_friend.id %}">Add as a Friend</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+  </body>
+</html>

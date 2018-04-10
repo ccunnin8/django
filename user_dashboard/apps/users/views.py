@@ -1,55 +1,47 @@
 from django.shortcuts import render, HttpResponse, reverse, redirect
 from django.contrib import messages
 from models import User, Comment, Message
+from django.contrib.auth import authenticate, login, get_user, user_login_failed
+from django.contrib.auth.decorators import login_required
 from forms import UserForm
-from bcrypt import checkpw
 # Create your views here.
-def index(req):
-    if "logged_in" in req.session:
-        if req.session["logged_in"]:
-            if req.session["user"].admin:
-                return redirect(reverse("dashboard:admin_dashboard"))
-            else:
-                return redirect(reverse("dashboard:index"))
-        else:
-            return redirect(reverse("index:index"))
 
+def index(req):
+    user = get_user(req)
+    if user.is_authenticted():
+        if user.is_staff:
+            return redirect(reverse("dashboard:admin_dashboard"))
+        else:
+            return redirect(reverse("dashboard:index"))
+    else:
+        return redirect(reverse("index:index"))
+
+@login_required(login_url="index:signin")
 def new(req):
-    if req.session["admin"]:
+    user = get_user(req)
+    if user.is_staff:
         return render(req,"users/register.html")
-    elif req.session["logged_in"]:
+    else:
         messages.error(req,"You are not authorized to view this page")
         return render(reverse("dashboard:index"))
-    else:
-        messages.error(req,"You must log in!")
-        return render(reverse("main:signin"))
 
 def create(req):
-    #check to see if password and password_conf are the same
-    if req.POST["password"] != req.POST["password_conf"]:
-        messages.error(req,"Your passwords do not match!")
-        return redirect(reverse("index:register"))
-    try:
-        #make user object from model form
-        new_user = UserForm(req.POST)
-        user = new_user.save(commit=False)
-        user.password = User.objects.encrypt_password(req.POST["password"])
+    #make user object from model form
+    user = UserForm(req.POST)
+    if user.is_valid():
+        user = user.save(commit=False)
         #if it's the first user make it an admin
-        if len(User.objects.all()) == 0:
-            user.admin = True
+        user.is_staff = len(User.objects.all()) == 0
         user.save()
-        #clear out form errors because it was a success!
-        req.session["form_errors"] = []
         #redirect to the users page
-        User.objects.login_user(req,user)
+        login(req,user)
         return redirect(reverse("users:show",kwargs={"id": user.id}))
-    except Exception as e:
+    else:
+        messages.error(req,user.errors)
         #show errors and redirect
-        print(e)
-        messages.error(req,"There was an error registering please try again")
-        req.session["form_errors"] = new_user.errors
         return redirect(reverse("index:register"))
 
+@login_required(login_url="index:signin")
 def delete_conf(req,id):
     try:
         user = User.objects.get(id=id)
@@ -65,9 +57,11 @@ def delete_conf(req,id):
             return redirect(reverse("dashboard:index"))
     return render(req,"users/confirm_delete.html",context)
 
+@login_required(login_url="index:signin")
 def destroy(req,id):
     #if the user being deleted is the user logged in OR the user is an admin delete, try to delete the user
-    if req.session["user"]["id"] == id or req.session["admin"]:
+    user = get_user(req)
+    if user.id == id or user.is_staff:
         try:
             User.objects.get(id=id).delete()
             return redirect(reverse("main:index"))

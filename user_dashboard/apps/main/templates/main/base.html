@@ -15,13 +15,13 @@
     </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          {% if request.session.logged_in %}
-            {% if request.session.admin %}
+          {% if user.is_authenticated %}
+            {% if user.is_staff %}
               <a class="nav-item nav-link" href="{% url 'dashboard:admin_dashboard' %}">Dashboard</a>
             {% else %}
               <a class="nav-item nav-link" href="{% url 'dashboard:index' %}">Dashboard</a>
             {% endif %}
-            <a class="nav-item nav-link" href="{% url 'users:show' request.session.user.id  %}">Profile</a>
+            <a class="nav-item nav-link" href="{% url 'users:show' user.id  %}">Profile</a>
             <a class="nav-item nav-link justify-content-end" href="{% url 'index:logout' %}">Log Off</a>
           {% else %}
             <a class="nav-item nav-link" href="{% url 'index:index' %}">Home</a>
