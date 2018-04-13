@@ -1,9 +1,14 @@
 {% extends "main/base.html" %}
 {% block title %}User Information{% endblock %}
 {% block content %}
-<h3>{{ user_show.name }}</h3>
-<h4>Registered at: {{ user_show.created_at }}</h4>
+{% if user.id == user_show.id %}
+<a href="{% url 'users:edit' user.id %}">Edit Profile</a>
+{% endif %}
+<h3>{{ user_show.first_name }} {{user_show.last_name}}</h3>
+<h4>Registered at: {{ user_show.date_joined }}</h4>
 <h4>Email address: {{ user_show.email }}</h4>
+<h3>Status: {{ user_show.user_profile.description }}</h3>
+<hr>
 <h3>Leave a message for {{user_show.name}}</h3>
 <form action="{% url 'users:message' user_show.id %}" method="post">
   <textarea name="message"></textarea>

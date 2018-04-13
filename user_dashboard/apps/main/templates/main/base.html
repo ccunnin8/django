@@ -16,11 +16,7 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           {% if user.is_authenticated %}
-            {% if user.is_staff %}
-              <a class="nav-item nav-link" href="{% url 'dashboard:admin_dashboard' %}">Dashboard</a>
-            {% else %}
-              <a class="nav-item nav-link" href="{% url 'dashboard:index' %}">Dashboard</a>
-            {% endif %}
+            <a class="nav-item nav-link" href="{% url 'dashboard:index' %}">Dashboard</a>
             <a class="nav-item nav-link" href="{% url 'users:show' user.id  %}">Profile</a>
             <a class="nav-item nav-link justify-content-end" href="{% url 'index:logout' %}">Log Off</a>
           {% else %}

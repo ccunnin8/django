@@ -1,7 +1,17 @@
 {% extends "main/base.html" %}
 {% block title %}Admin Dashboard{% endblock %}
 {% block content %}
-<h1>All Users</h1>
+{% if messages %}
+  <ul>
+  {% for message in messages %}
+    <li>{{message}}</li>
+  {% endfor %}
+  </ul>
+{% endif %}
+<h1>Manage Users</h1>
+{% if user.is_staff %}
+  <a href="{% url 'users:new' %}" class="btn btn-primary">Add New</a>
+{% endif %}
 <table>
   <thead>
     <tr>
@@ -10,22 +20,31 @@
       <td>email</td>
       <td>created_at</td>
       <td>user_level</td>
+      {% if user.is_staff %}
+        <td>actions</td>
+      {% endif %}
     </tr>
   </thead>
   <tbody>
-    {% for user in users %}
+    {% for u in users %}
     <tr>
-      <td>{{ user.id }}</td>
-      <td>{{ user.first_name }} {{ user.last_name }}</td>
-      <td>{{user.email}}</td>
-      <td>{{ user.date_joined }}</td>
+      <td>{{ u.id }}</td>
+      <td><a href="{% url 'users:show' u.id %}">{{ u.first_name }} {{ u.last_name }}</a></td>
+      <td>{{u.email}}</td>
+      <td>{{ u.date_joined }}</td>
       <td>
-        {% if user.is_staff %}
+        {% if u.is_staff %}
         admin
         {% else %}
         normal
         {% endif %}
       </td>
+      {% if user.is_staff %}
+        <td>
+          <a href="{% url 'users:edit' user.id %}">edit </a>
+          <a href="{% url 'users:remove' user.id %}">remove</a>
+        </td>
+      {% endif %}
     </tr>
     {% endfor %}
   </tbody>

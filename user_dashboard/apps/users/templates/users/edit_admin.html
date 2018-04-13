@@ -1,6 +1,0 @@
-{% extends "main/base.html" %}
-<h1>Edit User {{ user.id}}</h1>
-<a href="{% url 'dashboard/dashboard_admin' %}" class="btn btn-primary">Return to Dashboard</a>
-{% block content %}
-{% include "users/edit_user_form.html" %}
-{% endblock %}

@@ -13,9 +13,27 @@
   <div class="col-md-6">
     <form action="{% url 'users:update' %}" method="post">
         {% csrf_token %}
-        {% include 'registration/password_change_form.html' %}
+      <fieldset>
+        <legend>Change Password</legend>
+        <input type="hidden" name="type" value="password">
+        {{ change_password}}
         <input type="submit" class="btn btn-primary" value="Update Password">
       </fieldset>
     </form>
   </div>
+  {% if not user.is_staff %}
+  <div class="row">
+    <div class="col-md-12">
+      <form action="{% url 'users:update' %}" method="post">
+          {% csrf_token %}
+        <fieldset>
+          <input type="hidden" name="type" value="description">
+          <legend>Edit Description</legend>
+          <textarea name="description"></textarea>
+          <input type="submit" class="btn btn-primary" value="Create">
+        </fieldset>
+      </form>
+    </div>
+    {% endif %}
+  </form>
 </div>

@@ -20,12 +20,7 @@ def login(req):
     user = authenticate(username=req.POST["username"],password=req.POST["password"])
     if user is not None:
         auth_login(req,user)
-        #user is an admin
-        if user.is_staff:
-            return redirect(reverse("dashboard:admin_dashboard"))
-        #user is not an admin
-        else:
-            return redirect(reverse("dashboard:index"))
+        return redirect(reverse("dashboard:index"))
     else:
         #user is not found
         messages.error(req,"User not found or Password Incorrect!")

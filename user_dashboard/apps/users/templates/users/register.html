@@ -5,6 +5,6 @@
 {% for message in messages %}
   <p>{{ message }}</p>
 {% endfor %}
-  <a href="{% url 'dashboard:admin_dashboard' %}" class="btn btn-primary">Return to Dashboard</a>
+  <a href="{% url 'dashboard:index' %}" class="btn btn-primary">Return to Dashboard</a>
 {% include "users/register_form.html" %}
 {% endblock %}

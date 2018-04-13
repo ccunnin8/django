@@ -10,12 +10,3 @@ def index(req):
         print(e)
         messages.error(req,"Something went wrong")
         return render(req,"dashboard/index.html")
-
-def admin(req):
-    try:
-        users = User.objects.all()
-        return render(req,"dashboard/dashboard_admin.html",{"users":users})
-    except Exception as e:
-        print(e)
-        messages.error(req,"Something went wrong")
-        return render(req,"dashboard/dashboard_admin.html")
