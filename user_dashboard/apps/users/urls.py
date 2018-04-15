@@ -8,7 +8,7 @@ urlpatterns = [
     url(r'^remove/(?P<id>\d+)$',views.destroy,name="remove"),
     url(r'^edit/(?P<id>\d+)$',views.edit,name="edit"),
     url(r'^show/(?P<id>\d+)$',views.show,name="show"),
-    url(r'^update/',views.update,name="update"),
-    url(r'^message/(?P<id>)',views.message,name="message"),
-    url(r'^comment/(?P<user_id>)/(?P<comment_id>)',views.comment,name="comment")
+    url(r'^update$',views.update,name="update"),
+    url(r'^message$',views.message,name="message"),
+    url(r'^comment$',views.comment,name="comment")
 ]

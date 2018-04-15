@@ -140,11 +140,32 @@ def edit(req,id):
     return render(req,"users/edit.html",context)
 
 @login_required(login_url="index:signin")
-def message(req,id):
-    req = "will post a comment to " + str(id)
-    return HttpResponse(req)
+def message(req):
+    user_id = req.POST["user_id"]
+    try:
+        logged_in_user = get_user(req)
+        other_user = User.objects.get(id=user_id)
+        Message.objects.create(
+            message = req.POST["message"],
+            user = other_user,
+            poster = logged_in_user
+        )
+    except Exception as e:
+        print(e)
+        messages.error(req,"Something went wrong!")
+    return redirect(reverse("users:show",kwargs={"id": user_id }))
 
 @login_required(login_url="index:signin")
-def comment(req,user_id,comment_id):
-    req = "will post a comment to user: " + str(user_id) + "on comment " + str(comment_id)
-    return HttpResponse(req)
+def comment(req):
+    user_id = req.POST["user_id"]
+    try:
+        logged_in_user = get_user(req)
+        Comment.objects.create(
+            message = Message.objects.get(id=req.POST["message_id"]),
+            comment = req.POST["comment"],
+            poster = logged_in_user
+        )
+    except Exception as e:
+        print(e)
+        messages.error(req,"Something went wrong!")
+    return redirect(reverse("users:show",kwargs={"id": user_id }))

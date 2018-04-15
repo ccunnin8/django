@@ -15,11 +15,13 @@ class UserProfile(models.Model):
 class Message(models.Model):
     message = models.TextField()
     user = models.ForeignKey(User,related_name="messages")
+    poster = models.ForeignKey(User,null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
 class Comment(models.Model):
     message = models.ForeignKey(Message, related_name="comments")
+    poster = models.ForeignKey(User,null=True)
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

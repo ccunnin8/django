@@ -1,6 +1,11 @@
 {% extends "main/base.html" %}
 {% block title %}User Information{% endblock %}
 {% block content %}
+{% if messages %}
+ {% for message in messages %}
+ <p class="alert alert-primary">{{ message }} </p>
+ {% endfor %}
+{% endif %}
 {% if user.id == user_show.id %}
 <a href="{% url 'users:edit' user.id %}">Edit Profile</a>
 {% endif %}
@@ -10,30 +15,37 @@
 <h3>Status: {{ user_show.user_profile.description }}</h3>
 <hr>
 <h3>Leave a message for {{user_show.name}}</h3>
-<form action="{% url 'users:message' user_show.id %}" method="post">
-  <textarea name="message"></textarea>
+<form action="{% url 'users:message' %}" method="post">
+  {% csrf_token %}
+  <input type="hidden" name="user_id" value="{{user_show.id}}">
+  <textarea name="message"></textarea><br>
   <input type="submit" value="message" class="btn btn-secondary">
 </form>
-{% for message in user_messages %}
+{% for message in user_show.messages.all %}
 <div class="row">
   <div class="col-md-12">
-    <p>{{ message.user }} wrote</p>
+    <p><strong>{{ message.user }}</strong> wrote at {{ message.created_at }}</p>
     <p>{{ message.message }}</p>
   </div>
+
+{% if message.comments.all %}
+  {% for comment in message.comments.all %}
+      <div class="col-md-10 push-md-2">
+        <p>{{comment.poster.first_name}} wrote at {{ comment.created_at }}</p>
+        <p>{{comment.comment}}</p>
+      </div>
+  {% endfor %}
+  {% endif %}
+    <div class="col-md-10 push-md-2">
+      <form action="{% url 'users:comment' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="user_id" value="{{ user_show.id }}">
+        <input type="hidden" name="message_id" value="{{message.id}}">
+        <textarea name="comment"></textarea>
+        <input type="submit" value="comment" class="btn btn-secondary">
+      </form>
+    </div>
 </div>
-{% if message.replies %}
-<div class="row justify-content-end">
-  {% for reply in message.replies %}
-  <div class="col-md-10 push">
-    <p>{{reply.author}} wrote</p>
-    <p>{{reply.message}}</p>
-  </div>
-</div>
-<form action="{% url 'users:comment' user.id message.id %}" method="post">
-  <textarea name="comment"></textarea>
-  <input type="submit" value="comment" class="btn btn-secondary">
-</form>
 {% endfor %}
-{% endif %}
-{% endfor %}
+
 {% endblock %}
