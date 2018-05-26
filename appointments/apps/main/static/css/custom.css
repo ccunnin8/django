@@ -1,0 +1,32 @@
+.hero-body {
+  flex-direction: column;
+}
+.hero-body form {
+  width: 50% !important;
+}
+label, p {
+  width: 80%;
+  text-align: right;
+}
+input[type="submit"]{
+  width: 70px;
+  margin-top: 4px;
+}
+
+fieldset {
+  border: none;
+  border-radius: 20px;
+  padding: 60px;
+  box-shadow: 3px 6px 6px black;
+  background-color: blue;
+  display: flex;
+  flex-direction: column;
+  -ms-align-items: center;
+  justify-content: center;
+  align-items: center;
+}
+legend {
+  font-size: 2rem;
+  position: relative;
+  top: 25px;
+}

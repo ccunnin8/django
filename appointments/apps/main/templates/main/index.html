@@ -1,41 +1,55 @@
   {% extends "main/base.html" %}
   {% block title %} Appointment App Register {%endblock %}
   {% block content %}
-    <h1>Welcome!</h1>
 
-    <!-- MESSAGES -->
-    {% if messages %}
-      {% for message in messages %}
-        <p>{{ message }}</p>
-      {% endfor %}
-    {% endif %}
-    <!-- END MESSAGES -->
-
-    <form action="{% url 'main:register' %}" method="post">
-      {% csrf_token %}
-      <fieldset>
-        <legend>Register</legend>
-        {{ user_form }}
-        <p>Password should be at least 8 characters</p>
-        <p><label for="password_conf">Confirm PW: </label>
-        <input type="password" name="password_confirmation" id="password_conf"></p>
-        <p><label for="birthdate">Date of Birth</label>
-        <input type="date" placeholder="YYYY-MM-DD" pattern='[0-9]{4}-[0-9]{2}-[0-9]{2}'name="birthdate"></p>
-        <input type="submit" value="Register">
-      </fieldset>
-    </form>
-    <form class="" action="{% url 'main:login' %}" method="post">
-        {% csrf_token %}
-      <fieldset>
-        <legend>Login</legend>
-        <label for="email">Email: </label>
-        <input type="email" name="email" id="email"><br>
-        <label for="password">Password: </label>
-        <input type="password" name="password" id="password"><br>
-        <input type="submit" value="Login">
-      </fieldset>
-    </form>
-
+  <section class="hero is-primary is-bold is-fullheight">
+    <div class="hero-head has-text-centered">
+      <div class="container">
+        <h1 class="title">Welcome</h1>
+        <h2 class="subtitle">Please Register or Login to the Appointment App</h2>
+        <!-- MESSAGES -->
+        {% if messages %}
+          {% for message in messages %}
+            <p>{{ message }}</p>
+          {% endfor %}
+        {% endif %}
+        <!-- END MESSAGES -->
+      </div>
+    </div>
+    <div class="hero-body">
+          <form action="{% url 'main:register' %}" method="post">
+            {% csrf_token %}
+            <fieldset>
+              <legend>Register</legend>
+              {{ user_form }}
+              <p>Password should be at least 8 characters</p>
+              <p><label for="password_conf">Confirm PW: </label>
+              <input type="password" name="password_confirmation" id="password_conf"></p>
+              <p><label for="birthdate">Date of Birth</label>
+              <input type="date" placeholder="YYYY-MM-DD" pattern='[0-9]{4}-[0-9]{2}-[0-9]{2}'name="birthdate"></p>
+              <p>
+                <input type="submit" value="Register" class="button is-primary">
+              </p>
+            </fieldset>
+          </form>
+        <form class="" action="{% url 'main:login' %}" method="post">
+            {% csrf_token %}
+          <fieldset>
+            <legend>Login</legend>
+            <p>
+              <label for="email">Email: </label>
+              <input type="email" name="email" id="email">
+            </p>
+            <p>
+              <label for="password">Password: </label>
+              <input type="password" name="password" id="password">
+            </p>
+            <p><input type="submit" value="Login" class="button is-primary"></p>
+          </fieldset>
+        </form>
+    </div>
+    <div class="hero-foot"></div>
+  </section>
   </body>
 </html>
 {% endblock %}
