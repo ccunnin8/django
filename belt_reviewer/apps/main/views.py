@@ -52,3 +52,11 @@ def logout(req):
     except:
         messages.error(req,"Something went wrong!")
         return redirect("/")
+
+def logged_in(inner_function):
+    def function(req):
+        if req.session["logged_in"]:
+            return inner_function(req)
+        else:
+            messages.error(req,"You must be logged in!")
+            return redirect("/")
