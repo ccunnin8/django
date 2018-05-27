@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" type='text/css'>
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}" type='text/css'>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    <script   src="https://code.jquery.com/jquery-3.3.1.min.js"   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="   crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{% static 'javascript/edit_appointment.js' %}"></script>
+  </head>
+  <body>
+{% block content %}
+{% endblock %}

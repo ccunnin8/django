@@ -18,6 +18,7 @@ class AppointmentTests(TestCase):
             "am_or_pm": "PM"
         }
         self.test_user = User.objects.create(name="test", email="test@test.com", birthdate=date(1988,03,14),password=User.objects.encrypt_password("12345678"))
+    #HELPER FUNCTION TO SIMULATE LOGGEDIN USER
     def login(self):
         #simulate logged in user
         session = self.client.session
@@ -85,3 +86,15 @@ class AppointmentTests(TestCase):
         new_post["tasks"] = "This is another task!"
         self.client.post(reverse("appointments:add"), new_post)
         self.assertEqual(current_appointments + 1,len(self.test_user.appointments.all()))
+
+    def test_delete(self):
+        self.login()
+        self.test_add()
+        response = client.delete(reverse("appointments:delete", args=[1]))
+        assertEqual(0,len(self.test_user.appointments.all()))
+        assertEqual(response.status_code,302)
+
+    def test_edit(self):
+        self.login()
+        self.test_add()
+        
