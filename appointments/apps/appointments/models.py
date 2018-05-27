@@ -11,7 +11,11 @@ class AppManager(models.Manager):
         minute = int(post['minute'])
         am_or_pm = post['am_or_pm']
         if post['am_or_pm'] == "PM":
-            hour += 12
+            if hour != 12:
+                hour += 12
+        elif post["am_or_pm"] == "AM":
+            if hour == 12:
+                hour = 0
         return time(hour,minute)
 
     def create_date(self,post):

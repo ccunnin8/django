@@ -69,9 +69,8 @@ class UserTestCase(TestCase):
             "password": "12345678"
         })
         self.assertRedirects(res,reverse("appointments:index"))
-
-        def test_login_session(self):
-            self.assertEqual(client.session["logged_in"],True)
+        
+        self.assertEqual(client.session["logged_in"],True)
 
     def test_login_fail(self):
         res = client.post(reverse("main:login"),{
