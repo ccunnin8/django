@@ -16,20 +16,43 @@
         <!-- END MESSAGES -->
       </div>
     </div>
-    <div class="hero-body">
+    <div class="hero-body center">
           <form action="{% url 'main:register' %}" method="post">
             {% csrf_token %}
             <fieldset>
               <legend>Register</legend>
-              {{ user_form }}
+              <div class="field">
+                <label for="" class="label">Name</label>
+                <div class="control">
+                  <input type="text" placeholder="name" name="email">
+                </div>
+              </div>
+              <div class="field">
+                <label for="" class="label">Email</label>
+                <div class="control">
+                  <input type="email" placeholder="email" name="email">
+                </div>
+              </div>
+              <div class="field">
+                <label for="" class="label">Password</label>
+                <div class="control">
+                  <input type="text" name="password"></input>
+                </div>
+              </div>
+              {% if password_error %}
               <p>Password should be at least 8 characters</p>
-              <p><label for="password_conf">Confirm PW: </label>
-              <input type="password" name="password_confirmation" id="password_conf"></p>
-              <p><label for="birthdate">Date of Birth</label>
-              <input type="date" placeholder="YYYY-MM-DD" pattern='[0-9]{4}-[0-9]{2}-[0-9]{2}'name="birthdate"></p>
-              <p>
+              {% endif %}
+              <div class="field">
+                <label for="password_conf" class="label">Confirm PW: </label>
+                <input type="password" name="password_confirmation" id="password_conf">
+              </div>
+              <div class="field">
+                <label for="birthdate" class="label">Date of Birth</label>
+                <input type="date" placeholder="YYYY-MM-DD" pattern='[0-9]{4}-[0-9]{2}-[0-9]{2}'name="birthdate">
+              </div>
+              <div class="field">
                 <input type="submit" value="Register" class="button is-primary">
-              </p>
+              </div>
             </fieldset>
           </form>
         <form class="" action="{% url 'main:login' %}" method="post">

@@ -30,15 +30,20 @@ def logout(req):
 def register(req):
     #GET FORM
     user = UserForm(req.POST)
-
     #PASSWORDS MATCH?
     if req.POST["password"] != req.POST["password_confirmation"]:
         messages.error(req,"Your passwords do not match!")
         return redirect(reverse("main:index"))
 
     #CHECK IF DATA IS VALID?
+    print(user.is_valid(req.POST["birthdate"]))
     if user.is_valid(req.POST["birthdate"]):
-        new_user = user.save()
+        new_user = User.objects.create(
+            name=req.POST["name"],
+            email=req.POST["email"],
+            password=User.objects.encrypt_password(req.POST["password"]),
+            birthdate=User.objects.valid_date_format(req.POST["birthdate"])
+        )
         User.objects.login(req.session,new_user)
         return redirect(reverse("appointments:index"))
     else:

@@ -1,9 +1,11 @@
 from django.test import TestCase
 from django.test import Client
 from django.shortcuts import reverse
+from django.db import transaction
 from .models import User
 from django.core.exceptions import ValidationError
 from datetime import datetime
+from django.contrib import messages
 import bcrypt
 # Create your tests here.
 
@@ -18,9 +20,23 @@ class UserTestCase(TestCase):
             birthdate = datetime.strptime("1988-03-14","%Y-%m-%d")
         )
 
-    def testName(self):
+    def test_name(self):
         user = User.objects.get(name="test")
         self.assertEqual(user.name,"test")
+
+    def test_user(self):
+        try:
+            with transaction.atomic():
+                client.post(reverse("main:register"),{
+                    'name': "john",
+                    'email': "coreyjjc@test.com",
+                    'password': "12345678",
+                    'password_confirmation': "12345678",
+                    'birthdate':  "1988-03-14"
+                })
+                self.assertEqual(User.objects.get(email="coreyjjc@test.com").name,"john")
+        except:
+            print("FAIL")
 
     def test_submission_with_duplicate_email(self):
         try:
@@ -39,7 +55,7 @@ class UserTestCase(TestCase):
         try:
             res = client.post(reverse("main:register"), {
                 'name': "john",
-                'email': "test@test.com",
+                'email': "test@tester.com",
                 'password': "12345678",
                 'password_confirmation': "12345678",
                 'birthdate':  "03/14/1988"

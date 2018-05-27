@@ -1,16 +1,11 @@
-.hero-body {
-  flex-direction: column;
+.hero-head {
+  padding-top: 20px;
 }
-.hero-body form {
-  width: 50% !important;
-}
-label, p {
-  width: 80%;
-  text-align: right;
-}
-input[type="submit"]{
-  width: 70px;
-  margin-top: 4px;
+.center {
+  justify-content: center;
+  -ms-align-items: center;
+  align-items: center;
+  display: flex;
 }
 
 fieldset {
@@ -24,9 +19,30 @@ fieldset {
   -ms-align-items: center;
   justify-content: center;
   align-items: center;
+  margin: 10px;
 }
 legend {
   font-size: 2rem;
   position: relative;
   top: 25px;
+}
+.third {
+  width: 30%;
+  padding: 10px;
+}
+.third input[type="text"]{
+  width: 100%;
+}
+
+@media screen and (max-width: 500px){
+  .hero-body {
+    flex-direction: column;
+  }
+  fieldset {
+    padding: 20px;
+    width: 100%;
+  }
+  .third {
+    width: 100%;
+  }
 }

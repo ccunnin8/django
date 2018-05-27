@@ -1,0 +1,13 @@
+1. Fix the register/sign in page to reflect features
+
+FEATURES
+1. Allow user to track appointments
+  a. Add appointment
+  b. Delete Appointment
+  c. Edit Appointment
+2. Show Today's Appointments
+3. Show Future Appointments
+4. Email User List of Daily Appointment
+5. Text User 30 min before appointment
+6. Share Appointments with friends on app
+7. Edit User name, email, password 

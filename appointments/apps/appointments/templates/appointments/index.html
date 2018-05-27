@@ -1,57 +1,100 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
+{% extends "main/base.html" %}
+{% block content %}
     {% if messages %}
       {% for message in messages %}
        <p>{{ message }}</p>
       {% endfor %}
     {% endif %}
-    <h1>Hello, {{user.name}}</h1>
-    <h2>Here are your appointments for today, {{ today }}: </h2>
-    <table>
-      <thead>
-        <tr>
-          <td>Tasks</td>
-          <td>Time</td>
-          <td>Status</td>
-          <td>Action</td>
-        </tr>
-      </thead>
-      <tbody>
-        {% for task in todays_tasks %}
-        <td>{{ task.name }}</td>
-        <td>{{ task.time }}</td>
-        <td>{{ task.status }}</td>
-        <td><a href="">Edit</a> <a href="">Delete</a></td>
-        {% endfor %}
-      </tbody>
-    </table>
-    <h1>Your Other Appointments</h1>
-    <table>
-      <thead>
-        <tr>
-          <td>Tasks</td>
-          <td>Date</td>
-          <td>Time</td>
-        </tr>
-      </thead>
-      <tbody>
-        {% for task in other_tasks %}
-        <tr>
-          <td>{{ task.name}}</td>
-          <td>{{ task.date }}</td>
-          <td>{{ task.time }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    <h1>Add Appointment</h1>
-    <form class="" action="" method="post">
-      {{ add_apt }}
-    </form>
+    <section class="hero is-info">
+      <div class="hero-body">
+        <div class="container" style="text-align: center">
+          <h1 class="title">Hello, {{user.name}}</h1>
+          <h2>Here are your appointments for today, {{ today }}: </h2>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container">
+        {% if todays_tasks %}
+        <table class="table" style="width: 100%">
+          <thead>
+            <tr>
+              <td>Tasks</td>
+              <td>Time</td>
+              <td>Status</td>
+              <td>Action</td>
+            </tr>
+          </thead>
+          <tbody>
+            {% for task in todays_tasks %}
+            <tr>
+              <td>{{ task.tasks }}</td>
+              <td>{{ task.time }}</td>
+              <td>{{ task.status }}</td>
+              <td><a href="">Edit</a> <a href="">Delete</a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <p>You don't have any tasks today!</p>
+        {% endif %}
+    </section>
+    <section class="section">
+      <div class="container">
+        <title class="title"><h1>Your Other Appointments</h1></title>
+        {% if other_tasks %}
+        <table class="table" style="width: 100%">
+          <thead>
+            <tr>
+              <td>Tasks</td>
+              <td>Date</td>
+              <td>Time</td>
+            </tr>
+          </thead>
+          <tbody>
+            {% for task in other_tasks %}
+            <tr>
+              <td>{{ task.tasks}}</td>
+              <td>{{ task.date }}</td>
+              <td>{{ task.time }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <p>You don't have any appointments!</p>
+        {% endif %}
+      </div>
+    </div>
+    </section>
+    <section class="section center">
+      <div class="card third">
+        <h1 class="title is-size-4">Add Appointment</h1>
+        <form class="form" action="{% url 'appointments:add' %}" method="post">
+          {% csrf_token %}
+         <div class="field">
+           {{ add_apt.date.label_tag}}
+           <div class="control">{{ add_apt.date }}</div>
+         </div>
+         <div class="field">
+           {{ add_apt.time.label_tag}}
+           <div class="inline">
+               <label for="" >Hour: {{ add_apt.hour }}</label>
+               <label for="" >Minute: {{ add_apt.minute }}</label>
+               <label for="" >AM/PM: {{ add_apt.am_or_pm}}</label>
+           </div>
+         </div>
+         <div class="field">
+           {{ add_apt.tasks.label_tag}}
+           <div class="control">{{ add_apt.tasks }}</div>
+         </div>
+         <div class="field">
+           <div class="control"><button class="button is-info">Submit</button></div>
+         </div>
+        </form>
+      </div>
+    </section>
   </body>
 </html>
+{% endblock %}

@@ -19,10 +19,10 @@ class UserManager(models.Manager):
     def valid_date_format(self,date):
         date_format = "%Y-%m-%d"
         try:
-             return datetime.strptime(date,date_format)
+            return datetime.strptime(date,date_format)
         except Exception as e:
-            print(e)
             raise ValidationError("Date must be in proper format")
+
 
     def login(self,session,user):
         session["logged_in"] = True
@@ -54,15 +54,7 @@ class UserForm(ModelForm):
 
     def is_valid(self,date):
         try:
-            User.objects.valid_date_format(date)
+            birthdate = User.objects.valid_date_format(date)
         except Exception as e:
-            print(e)
             return False
-        super(UserForm,self).is_valid()
-
-    def save(self,commit=True):
-        user = super(UserForm,self).save(commit=False)
-        user.password = User.objects.encrypt_password(user.password)
-        if commit:
-            user.save()
-        return user
+        return super(UserForm,self).is_valid()
