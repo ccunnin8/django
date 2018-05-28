@@ -6,7 +6,7 @@ from .models import User
 from django.core.exceptions import ValidationError
 from datetime import datetime
 from django.contrib import messages
-import bcrypt
+
 # Create your tests here.
 
 client = Client()
@@ -16,7 +16,7 @@ class UserTestCase(TestCase):
         User.objects.create(
             name="test",
             email="test@test.com",
-            password= bcrypt.hashpw("12345678".encode(),bcrypt.gensalt()),
+            password= User.objects.encrypt_password("12345678"),
             birthdate = datetime.strptime("1988-03-14","%Y-%m-%d")
         )
 
@@ -36,7 +36,7 @@ class UserTestCase(TestCase):
                 })
                 self.assertEqual(User.objects.get(email="coreyjjc@test.com").name,"john")
         except:
-            print("FAIL")
+            pass
 
     def test_submission_with_duplicate_email(self):
         try:
@@ -69,7 +69,7 @@ class UserTestCase(TestCase):
             "password": "12345678"
         })
         self.assertRedirects(res,reverse("appointments:index"))
-        
+
         self.assertEqual(client.session["logged_in"],True)
 
     def test_login_fail(self):

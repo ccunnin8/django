@@ -13,7 +13,7 @@ class AppointmentTests(TestCase):
             "minute": "00",
             "date_month": "03",
             "date_day": "14",
-            "date_year": "1988",
+            "date_year": "2019",
             "tasks": "This is a test!",
             "am_or_pm": "PM"
         }
@@ -58,7 +58,7 @@ class AppointmentTests(TestCase):
         self.assertEqual(Appointment.objects.create_time(post),test_time)
 
     def test_create_date(self):
-        test_date = date(1988,03,14)
+        test_date = date(2019,03,14)
         self.assertEqual(Appointment.objects.create_date(self.post),test_date)
 
     def test_save(self):
@@ -78,7 +78,23 @@ class AppointmentTests(TestCase):
         self.assertEqual(len(response.context["other_tasks"]),1) #1 APPOINTMENT IN OTHER_TASKS
         self.assertEqual(response.context["other_tasks"][0].tasks,"This is a test!") #TASK IN OTHER_TASKS is what we expect
 
-
+    def test_date_must_be_in_future(self):
+        self.login()
+        num_appointments = len(Appointment.objects.all())
+        post = {
+            "hour": "12",
+            "minute": "00",
+            "date_month": "03",
+            "date_day": "14",
+            "date_year": "1988",
+            "tasks": "This is a test!",
+            "am_or_pm": "PM"
+        }
+        appt_date = Appointment.objects.create_date(post)
+        appt_time = Appointment.objects.create_time(post)
+        self.assertEqual(False,Appointment.objects.time_not_in_past(appt_date))
+        self.client.post(reverse("appointments:add"),post)
+        self.assertEqual(num_appointments,len(Appointment.objects.all()))
     def test_add(self):
         self.login()
         current_appointments = len(self.test_user.appointments.all())
@@ -90,11 +106,10 @@ class AppointmentTests(TestCase):
     def test_delete(self):
         self.login()
         self.test_add()
-        response = client.delete(reverse("appointments:delete", args=[1]))
-        assertEqual(0,len(self.test_user.appointments.all()))
-        assertEqual(response.status_code,302)
+        response = self.client.delete(reverse("appointments:delete", args=[1]))
+        self.assertEqual(0,len(self.test_user.appointments.all()))
+        self.assertEqual(response.status_code,302)
 
     def test_edit(self):
         self.login()
         self.test_add()
-        

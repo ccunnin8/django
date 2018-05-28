@@ -25,6 +25,9 @@ class AppManager(models.Manager):
         year = int(post['date_year'])
         return date(year,month,day)
 
+    def time_not_in_past(self,appt_date):
+        return date.today() <= appt_date 
+
     def save(self,date,time,user,post):
     #takes date, time that are already processed, with the current user, and the rest of post and makes appt
         super(AppManager,self).create(user=user,date=date,time=time,tasks=post['tasks'])

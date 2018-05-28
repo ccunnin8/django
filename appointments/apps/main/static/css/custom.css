@@ -34,7 +34,7 @@ legend {
   width: 100%;
 }
 
-@media screen and (max-width: 500px){
+@media screen and (max-width: 720px){
   .hero-body {
     flex-direction: column;
   }
@@ -45,4 +45,13 @@ legend {
   .third {
     width: 100%;
   }
+}
+.green {
+  background-color: green;
+}
+.yellow {
+  background-color: yellow;
+}
+.red {
+  background-color: red;
 }

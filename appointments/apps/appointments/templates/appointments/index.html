@@ -27,7 +27,7 @@
           </thead>
           <tbody>
             {% for task in todays_tasks %}
-            <tr>
+            <tr class="{% if task.status == 'P' %}yellow{% elif task.status == 'C' %}green{% else %}red{% endif %}">
               <td>{{ task.tasks }}</td>
               <td>{{ task.time }}</td>
               <td>{{ task.status }}</td>
