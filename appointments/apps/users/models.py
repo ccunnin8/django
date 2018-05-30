@@ -44,7 +44,6 @@ class User(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
 
-
 class UserForm(ModelForm):
     password = CharField(widget=PasswordInput)
 

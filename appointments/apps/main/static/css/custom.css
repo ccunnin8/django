@@ -34,6 +34,13 @@ legend {
   width: 100%;
 }
 
+.settings {
+  height: 100%;
+  border: 1px solid black;
+  background-color: white;
+}
+
+
 @media screen and (max-width: 500px){
   .hero-body {
     flex-direction: column;
@@ -43,6 +50,9 @@ legend {
     width: 100%;
   }
   .third {
+    width: 100%;
+  }
+  .sidebar {
     width: 100%;
   }
 }
