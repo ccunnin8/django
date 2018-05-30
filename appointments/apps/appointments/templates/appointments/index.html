@@ -1,4 +1,4 @@
-{% extends "main/base.html" %}
+{% extends "appointments/base.html" %}
 {% block content %}
     {% if messages %}
       {% for message in messages %}
@@ -30,11 +30,11 @@
           </thead>
           <tbody>
             {% for task in todays_tasks %}
-            <tr>
+            <tr class="{% if task.status == 'P' %}yellow{% elif task.status == 'C' %}green{% else %}red{% endif %}">
               <td>{{ task.tasks }}</td>
               <td>{{ task.time }}</td>
               <td>{{ task.status }}</td>
-              <td><a href="">Edit</a> <a href="">Delete</a></td>
+              <td><a class="edit" data-id="{{ task.id }}">Edit</a> | <a href="{% url 'appointments:delete' task.id %}">Delete</a></td>
             </tr>
             {% endfor %}
           </tbody>
@@ -53,6 +53,7 @@
               <td>Tasks</td>
               <td>Date</td>
               <td>Time</td>
+              <td>Actions</td>
             </tr>
           </thead>
           <tbody>
@@ -61,6 +62,7 @@
               <td>{{ task.tasks}}</td>
               <td>{{ task.date }}</td>
               <td>{{ task.time }}</td>
+              <td><a class="edit" data-id="{{ task.id }}">Edit</a> | <a href="{% url 'appointments:delete' task.id %}">Delete</a></td>
             </tr>
             {% endfor %}
           </tbody>
@@ -72,6 +74,7 @@
     </div>
     </section>
     <section class="section center">
+      <!-- ADD FORM -->
       <div class="card third">
         <h1 class="title is-size-4">Add Appointment</h1>
         <form class="form" action="{% url 'appointments:add' %}" method="post">
@@ -94,6 +97,36 @@
          </div>
          <div class="field">
            <div class="control"><button class="button is-info">Submit</button></div>
+         </div>
+        </form>
+      </div>
+      <!-- EDIT FORM -->
+      <div class="card third is-hidden">
+        <h1 class="title is-size-4">Edit Appointment</h1>
+        <form class="form" action="{% url 'appointments:update' %}" method="post" id="edit_form">
+          {% csrf_token %}
+         <input type="hidden" name="appointment_id" vale="">
+         <div class="field">
+           {{ add_apt.date.label_tag}}
+           <div class="control">{{ add_apt.date }}</div>
+         </div>
+         <div class="field">
+           {{ add_apt.time.label_tag}}
+           <div class="inline">
+               <label for="" >Hour: {{ add_apt.hour }}</label>
+               <label for="" >Minute: {{ add_apt.minute }}</label>
+               <label for="" >AM/PM: {{ add_apt.am_or_pm}}</label>
+           </div>
+         </div>
+         <div class="field">
+           {{ add_apt.tasks.label_tag}}
+           <div class="control">{{ add_apt.tasks }}</div>
+         </div>
+         <div class="field">
+           <div class="control">
+             <button class="button is-info">Submit</button>
+             <button class="button is-danger" id="cancel">Cancel</button>
+           </div>
          </div>
         </form>
       </div>

@@ -34,6 +34,7 @@ legend {
   width: 100%;
 }
 
+<<<<<<< HEAD
 .settings {
   height: 100%;
   border: 1px solid black;
@@ -42,6 +43,9 @@ legend {
 
 
 @media screen and (max-width: 500px){
+=======
+@media screen and (max-width: 720px){
+>>>>>>> e4e6d153f005a9052ee60955e849bca5047b46ea
   .hero-body {
     flex-direction: column;
   }
@@ -55,4 +59,13 @@ legend {
   .sidebar {
     width: 100%;
   }
+}
+.green {
+  background-color: green;
+}
+.yellow {
+  background-color: yellow;
+}
+.red {
+  background-color: red;
 }
