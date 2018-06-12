@@ -1,7 +1,7 @@
 <div class="sidebar">
   <h1 class="title">Settings</h1>
   <!-- send updated settings via AJAX -->
-  <form action="" class="">
+  <form id="settings_form">
     {% csrf_token %}
     <h3>Notification Methods</h3>
     <div>
@@ -20,10 +20,9 @@
     </div>
     <div class="control">
       <label for="phonenumber">Phone Number: </label>
-      <input type="text" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="000-000-0000">
+      <input type="text" name="phonenumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="000-000-0000">
       <p>Optional</p>
     </div>
     <input type="submit" value="save">
-    <button>cancel</button>
   </form>
 </div>
