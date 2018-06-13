@@ -2,8 +2,8 @@
   {% block title %} Appointment App Register {%endblock %}
   {% block content %}
 
-  <section class="hero is-primary is-bold is-fullheight">
-    <div class="hero-head has-text-centered">
+  <section class="hero is-bold is-fullheight">
+    <div class="hero-body has-text-centered welcome">
       <div class="container">
         <h1 class="title">Welcome</h1>
         <h2 class="subtitle">Please Register or Login to the Appointment App</h2>
@@ -16,61 +16,8 @@
         <!-- END MESSAGES -->
       </div>
     </div>
-    <div class="hero-body center">
-          <form action="{% url 'main:register' %}" method="post">
-            {% csrf_token %}
-            <fieldset>
-              <legend>Register</legend>
-              <div class="field">
-                <label for="" class="label">Name</label>
-                <div class="control">
-                  <input type="text" placeholder="name" name="email">
-                </div>
-              </div>
-              <div class="field">
-                <label for="" class="label">Email</label>
-                <div class="control">
-                  <input type="email" placeholder="email" name="email">
-                </div>
-              </div>
-              <div class="field">
-                <label for="" class="label">Password</label>
-                <div class="control">
-                  <input type="text" name="password"></input>
-                </div>
-              </div>
-              {% if password_error %}
-              <p>Password should be at least 8 characters</p>
-              {% endif %}
-              <div class="field">
-                <label for="password_conf" class="label">Confirm PW: </label>
-                <input type="password" name="password_confirmation" id="password_conf">
-              </div>
-              <div class="field">
-                <label for="birthdate" class="label">Date of Birth</label>
-                <input type="date" placeholder="YYYY-MM-DD" pattern='[0-9]{4}-[0-9]{2}-[0-9]{2}'name="birthdate">
-              </div>
-              <div class="field">
-                <input type="submit" value="Register" class="button is-primary">
-              </div>
-            </fieldset>
-          </form>
-        <form class="" action="{% url 'main:login' %}" method="post">
-            {% csrf_token %}
-          <fieldset>
-            <legend>Login</legend>
-            <p>
-              <label for="email">Email: </label>
-              <input type="email" name="email" id="email">
-            </p>
-            <p>
-              <label for="password">Password: </label>
-              <input type="password" name="password" id="password">
-            </p>
-            <p><input type="submit" value="Login" class="button is-primary"></p>
-          </fieldset>
-        </form>
-    </div>
+    {% include 'main/features.html' %}
+    {% include 'main/login_register.html' %}
     <div class="hero-foot"></div>
   </section>
   </body>

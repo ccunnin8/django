@@ -1,5 +1,8 @@
-.hero-head {
+.hero-body {
   padding-top: 20px;
+}
+.title {
+  font-size: 4rem;
 }
 .center {
   justify-content: center;
@@ -7,30 +10,48 @@
   align-items: center;
   display: flex;
 }
-
+.wrapper {
+  width: 80%;
+  margin: 0 auto;
+}
 fieldset {
   border: none;
   border-radius: 20px;
   padding: 60px;
   box-shadow: 3px 6px 6px black;
-  background-color: blue;
+  /*background-color: blue;*/
   display: flex;
   flex-direction: column;
   -ms-align-items: center;
   justify-content: center;
   align-items: center;
-  margin: 10px;
 }
 legend {
   font-size: 2rem;
   position: relative;
   top: 25px;
 }
+
+p input[type='email'], p input[type='password'] {
+  width: 70%;
+  float:right;
+}
+.features {
+  width: 80%;
+  margin: 0 auto 50px auto;
+}
+.welcome {
+  max-height: 250px;
+}
+.card {
+  height: 250px;
+  padding: 20px;
+}
 .third {
   width: 30%;
   padding: 10px;
 }
-.third input[type="text"]{
+.control input, .third input[type="text"]{
   width: 100%;
 }
 .sidebar {
