@@ -11,3 +11,4 @@ and Javascript
 
 Allows users to register, login, validates users, allows them to create, manage, and track appointments.
 
+To start project locally run python manage.py runserver
