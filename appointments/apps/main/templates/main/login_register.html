@@ -1,14 +1,14 @@
 <section class="wrapper">
   <div class="columns">
     <div class="column">
-        <form action="{% url 'main:register' %}" method="post">
+      <form action="{% url 'main:register' %}" method="post">
         {% csrf_token %}
         <fieldset>
           <legend>Register</legend>
           <div class="field">
             <label for="" class="label">Name</label>
             <div class="control">
-              <input type="text" placeholder="name" name="email">
+              <input type="text" placeholder="name" name="name">
             </div>
           </div>
           <div class="field">
@@ -20,7 +20,7 @@
           <div class="field">
             <label for="" class="label">Password</label>
             <div class="control">
-              <input type="text" name="password"></input>
+              <input type="password" name="password"></input>
             </div>
           </div>
           {% if password_error %}
@@ -35,7 +35,7 @@
           <div class="field">
             <label for="birthdate" class="label">Date of Birth</label>
             <div class="control">
-              <input type="date" placeholder="YYYY-MM-DD" pattern='[0-9]{4}-[0-9]{2}-[0-9]{2}'name="birthdate">
+              <input type="date" placeholder="YYYY-MM-DD" pattern='[0-9]{4}-[0-9]{2}-[0-9]{2}' name="birthdate">
             </div>
           </div>
           <div class="field">
@@ -46,7 +46,7 @@
     </div>
     <div class="column">
       <form class="" action="{% url 'main:login' %}" method="post">
-          {% csrf_token %}
+        {% csrf_token %}
         <fieldset>
           <legend>Login</legend>
           <p>
@@ -57,8 +57,10 @@
             <label for="password">Password: </label>
             <input type="password" name="password" id="password">
           </p>
-          <p><input type="submit" value="Login" class="button is-primary"></p>
+          <p>
+            <input type="submit" value="Login" class="button is-primary">
+          </p>
         </fieldset>
       </form>
-    </column>
-</div>
+      </column>
+    </div>

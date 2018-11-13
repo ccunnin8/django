@@ -43,7 +43,7 @@ p input[type='email'], p input[type='password'] {
 .welcome {
   max-height: 250px;
 }
-.card {
+.feature {
   height: 250px;
   padding: 20px;
 }
